@@ -3,7 +3,7 @@ import "express-async-errors";
 import express from "express";
 import morgan from "morgan";
 import * as dotenv from "dotenv";
-import { v2 as cloudinary } from "cloudinary";
+import cloudinary from "cloudinary";
 
 import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
