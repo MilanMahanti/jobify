@@ -1,20 +1,22 @@
-import {
-  Outlet,
-  redirect,
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { Outlet, redirect, useNavigate, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Loading, Navbar, SmallSidebar } from "../components";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
-export const loader = async () => {
-  try {
-    const { data } = await customFetch.get("/auth/current-user");
+const userQuery = {
+  queryKey: ["user"],
+  queryFn: async () => {
+    const { data } = await customFetch("/auth/current-user");
     return data;
+  },
+};
+
+export const loader = (queryClient) => async () => {
+  try {
+    return await queryClient.ensureQueryData(userQuery);
   } catch (error) {
     return redirect("/");
   }
@@ -22,9 +24,10 @@ export const loader = async () => {
 
 const DashboardContext = createContext();
 
-function DashboardLayout({ isDarkThemeEnabled }) {
-  const { user } = useLoaderData();
+function DashboardLayout({ isDarkThemeEnabled, queryClient }) {
+  const { user } = useQuery(userQuery).data;
   const [showSidebar, setShowSidebar] = useState(false);
+  const [isAuthError, setIsAuthError] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled);
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -44,12 +47,28 @@ function DashboardLayout({ isDarkThemeEnabled }) {
     try {
       navigate("/");
       await customFetch.get("/auth/logout");
+      queryClient.invalidateQueries();
       toast.success("Logged out successfully");
     } catch (error) {
       return error;
     }
   };
-
+  customFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error?.response?.status === 401) {
+        setIsAuthError(true);
+      }
+      return Promise.reject(error);
+    }
+  );
+  useEffect(() => {
+    if (!isAuthError) return;
+    logoutUser();
+    // eslint-disable-next-line
+  }, [isAuthError]);
   return (
     <DashboardContext.Provider
       value={{

@@ -18,6 +18,8 @@ import cookieParser from "cookie-parser";
 
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 
 dotenv.config();
 
@@ -39,6 +41,9 @@ app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(helmet());
+app.use(mongoSanitize());
+
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", userRouter);
 
@@ -49,7 +54,7 @@ app.get("*", (req, res) => {
 app.use("*", (req, res) => {
   res
     .status(StatusCodes.NOT_FOUND)
-    .json({ status: "Error ", message: "Route not defined" });
+    .json({ status: "Error ", msg: "Route not defined" });
 });
 app.use(errorHandlerMiddleware);
 

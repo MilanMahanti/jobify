@@ -1,4 +1,5 @@
 import { Router } from "express";
+import rateLimiter from "express-rate-limit";
 import {
   registerUser,
   loginUser,
@@ -21,10 +22,16 @@ import {
 } from "../middleware/authMiddleware.js";
 import upload from "../middleware/multerMiddleware.js";
 
+const apiLimiter = rateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 15,
+  message: { msg: "IP rate limit exceeded, retry in 15 minutes." },
+});
+
 const router = Router();
 
-router.route("/register").post(validateRegisterInput, registerUser);
-router.route("/login").post(validateLoginInput, loginUser);
+router.route("/register").post(apiLimiter, validateRegisterInput, registerUser);
+router.route("/login").post(apiLimiter, validateLoginInput, loginUser);
 router.route("/logout").get(logout);
 
 router.use(authenticateUser);
