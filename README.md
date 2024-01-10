@@ -1,4 +1,5 @@
 <!--
+![logo](https://github.com/MilanMahanti/jobify-mern-application-temp/assets/114055453/3b5e52cb-c3f6-498f-b811-07da304a1743)<!--
 Hey, thanks for using the awesome-readme-template template.  
 If you have any enhancements, then fork this project and create a pull request 
 or just open an issue with the label "enhancement".
@@ -8,9 +9,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 -->
 <div align="center">
 
-  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
-  
-  <h1> Jobster </h1>
+  <img src="https://github.com/MilanMahanti/jobster-mern-application-temp/assets/114055453/91f1921d-3aa5-49a8-b2f3-2664805fd283" alt="logo" width="200" height="auto" />
   
   <p>
     An one stop job search application for all your needs.
@@ -22,11 +21,11 @@ Maybe you can mention me or this repo in the acknowledgements too
 <h4>
     <a href="https://jobster-49pt.onrender.com/">View Demo</a>
   <span> · </span>
-    <a href="https://github.com/MilanMahanti/jobster">Documentation</a>
+    <a href="https://github.com/MilanMahanti/jobify">Documentation</a>
   <span> · </span>
-    <a href="https://github.com/MilanMahanti/jobster/issues/">Report Bug</a>
+    <a href="https://github.com/MilanMahanti/jobify/issues/">Report Bug</a>
   <span> · </span>
-    <a href="https://github.com/MilanMahanti/jobster/issues/">Request Feature</a>
+    <a href="https://github.com/MilanMahanti/jobify/issues/">Request Feature</a>
   </h4>
 </div>
 
@@ -55,7 +54,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 <!-- About the Project -->
 ## :star2: About the Project
-Jobster is a **MERN** Stack application for searching jobs. The backend is made upon **Node** and **Express** and the fronend of the application is done with **React** and **React Query**. It is a very simple full stack application user can easily register and login and starts adding jobs. I have used **mongoDB** for database with **monGoose** to connect with the database.
+Jobify is a **MERN** Stack application for searching jobs. The backend is made upon **Node** and **Express** and the fronend of the application is done with **React** and **React Query**. It is a very simple full stack application user can easily register and login and starts adding jobs. I have used **mongoDB** for database with **monGoose** to connect with the database.
 
 <!-- Screenshots -->
 ### :camera: Screenshots
@@ -138,13 +137,13 @@ Install my-project with npm
 Clone the project
 
 ```bash
-  git clone https://github.com/MilanMahanti/jobster.git
+  git clone https://github.com/MilanMahanti/jobify.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd jobster
+  cd jobify
 ```
 
 Install dependencies
